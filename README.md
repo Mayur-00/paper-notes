@@ -35,7 +35,7 @@ Make sure you have the following installed on your machine:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/alexsmith/paper-notes.git
+   git clone https://github.com/Mayur-00/paper-notes
    cd paper-notes
    ```
 
@@ -211,10 +211,10 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 
 ## 📈 Stats
 
-![GitHub stars](https://img.shields.io/github/stars/alexsmith/paper-notes?style=social)
-![GitHub forks](https://img.shields.io/github/forks/alexsmith/paper-notes?style=social)
-![GitHub issues](https://img.shields.io/github/issues/alexsmith/paper-notes)
-![GitHub license](https://img.shields.io/github/license/alexsmith/paper-notes)
+![GitHub stars](https://img.shields.io/github/stars/Mayur-00/paper-notes?style=social)
+![GitHub forks](https://img.shields.io/github/forks/Mayur-00/paper-notes?style=social)
+![GitHub issues](https://img.shields.io/github/issues/Mayur-00/paper-notes)
+![GitHub license](https://img.shields.io/github/license/Mayur-00/paper-notes)
 
 ---
 
