@@ -101,7 +101,7 @@ export async function POST (req:NextRequest){
 
 
         
-    } catch (error:any) {
+    } catch (error) {
         console.log("An error occured while verifying code", error);
 
     return Response.json(

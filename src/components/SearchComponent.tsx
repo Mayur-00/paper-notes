@@ -30,7 +30,8 @@ const SearchComponent = () => {
     router.push(`/editor/${noteId}`)
   }
   
-  const formatDate = (dateString: string) => {
+  
+  const formatDate = (dateString:Date) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
@@ -71,7 +72,7 @@ const SearchComponent = () => {
     onClick={() => closeSearch()}
     >
       <div 
-        className='h-[50%] sm:h-[80%] w-[90%] sm:w-[40%] bg-white dark:bg-neutral-800  rounded-md shadow-lg shadow-gray-400 flex flex-col p-4' 
+        className='h-[50%] sm:h-[80%] w-[90%] sm:w-[40%] bg-white dark:bg-neutral-800  rounded-md shadow-lg shadow-neutral-50 dark:shadow-neutral-900 flex flex-col p-4' 
         onClick={handleEventPropagation}
         >
         {/* Close button */}
@@ -109,9 +110,9 @@ const SearchComponent = () => {
               <div className='space-y-2'>
                 {results.map((note) => (
                   <div
-                    key={note._id}
+                    key={note._id.toString()}
                     className='p-3 border border-gray-200 dark:border-neutral-700 rounded-lg hover:bg-gray-50 dark:hover:bg-neutral-600 cursor-pointer transition-colors'
-                    onClick={() => handleNoteClick(note._id)}
+                    onClick={() => handleNoteClick(note._id.toString())}
                   >
                     <div className='flex items-start gap-3'>
                       <FileText className='w-5 h-5 text-gray-400 mt-1 flex-shrink-0' />

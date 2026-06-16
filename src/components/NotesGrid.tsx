@@ -1,34 +1,40 @@
-"use client"
+"use client";
 
-import axios from 'axios';
-import { useRouter } from 'next/navigation';
-import React, { useCallback, useEffect, useState } from 'react'
-import { toast } from 'sonner';
-import NotesCard from './NotesCard';
+import axios from "axios";
+import React, { useCallback, useEffect, useState } from "react";
+import { toast } from "sonner";
+import NotesCard from "./NotesCard";
+import { Document } from "mongoose";
 
+export interface INote extends Document {
+  author: string;
+  icon: string;
+  title: string;
+  body: string;
+  folderId: string;
+  status: string;
+  isArchieved: boolean;
+  isPinned: boolean;
+  __v:number;
+  updatedAt: Date;
+  createdAt?: Date;
+}
 const NotesGrid = () => {
-
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState<INote[]>([]);
   const [isFetching, setIsFetching] = useState(false);
-  const [error, setError] = useState<any>();
-
-  const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
 
   // Function to truncate text to specified word count
-  const truncateText = (text:string, wordLimit = 20) => {
-   return  text.slice(0, wordLimit)
-    // // if (words.length <= wordLimit) {
-    // //   return text;
-    // // }
-    // return words.slice(0, wordLimit).join(' ') + '...';
+  const truncateText = (text: string, wordLimit = 20) => {
+    return text.slice(0, wordLimit);
   };
 
   // Function to format date to relative time
-  const getRelativeTime = (dateString:any) => {
+  const getRelativeTime = (dateString: Date) => {
     const now = new Date();
     const date = new Date(dateString);
     const diffInMs = now.getTime() - date.getTime();
-    
+
     const seconds = Math.floor(diffInMs / 1000);
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
@@ -38,19 +44,19 @@ const NotesGrid = () => {
     const years = Math.floor(days / 365);
 
     if (years > 0) {
-      return `${years} year${years > 1 ? 's' : ''} ago`;
+      return `${years} year${years > 1 ? "s" : ""} ago`;
     } else if (months > 0) {
-      return `${months} month${months > 1 ? 's' : ''} ago`;
+      return `${months} month${months > 1 ? "s" : ""} ago`;
     } else if (weeks > 0) {
-      return `${weeks} week${weeks > 1 ? 's' : ''} ago`;
+      return `${weeks} week${weeks > 1 ? "s" : ""} ago`;
     } else if (days > 0) {
-      return `${days} day${days > 1 ? 's' : ''} ago`;
+      return `${days} day${days > 1 ? "s" : ""} ago`;
     } else if (hours > 0) {
-      return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+      return `${hours} hour${hours > 1 ? "s" : ""} ago`;
     } else if (minutes > 0) {
-      return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+      return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
     } else {
-      return 'Just now';
+      return "Just now";
     }
   };
 
@@ -64,23 +70,16 @@ const NotesGrid = () => {
 
       if (response.data.success) {
         setNotes(response.data.notes);
-        console.log('Fetched notes:', response.data.notes);
+        // console.log("Fetched notes:", response.data.notes);
       }
-      
-    } catch (error:any) {
+    } catch (error) {
       toast.error("Can't get notes");
-      setError(error.message);
+      setError("Failed to connect, make sure you have stable connection");
       console.log(error);
     } finally {
       setIsFetching(false);
     }
   }, []);
-
-  const handleNoteClick = (noteId:any) => {
-    toast.success("redirecting");
-    router.push(`editor/${noteId}`)
-  };
-
 
   useEffect(() => {
     fetchNotes();
@@ -89,45 +88,45 @@ const NotesGrid = () => {
   if (isFetching) {
     return (
       <div className="w-full">
-   
-        <div className="flex justify-center items-center h-64">
+        <div className="flex h-64 items-center justify-center">
           <div className="text-gray-500">Loading notes...</div>
         </div>
       </div>
     );
   }
 
- 
-  
-
   return (
-    <div className="w-full">
+    <div className="w-full ">
       {/* Search Input */}
-     
 
       {/* Results Summary */}
-     
 
       {/* Notes Grid */}
-      {notes.length === 0 ? (
-        <div className="flex flex-col items-center justify-center h-64 text-gray-500">
-          <div className="text-lg mb-2">
-           'No notes available
-          </div>
-          <div className="text-sm">
-            'Create your first note to get started
-          </div>
-        </div>
-      ) : (
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-          {notes.map((note:any) => (
-            <NotesCard title={note.title} description={truncateText(note.body, 100) + '...'} time={getRelativeTime(note.updatedAt)} key={note.id}/>
-          ))}
-         
+      {error && (
+        <div className="flex h-64 flex-col items-center justify-center text-gray-500">
+          <div className="mb-2 text-lg">'No notes available</div>
+          <div className="text-sm">{error}</div>
         </div>
       )}
 
-      
+      {notes.length === 0 ? (
+        <div className="flex h-64 flex-col items-center justify-center text-gray-500">
+          <div className="mb-2 text-lg">'No notes available</div>
+          <div className="text-sm">'Create your first note to get started</div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {notes.map((note) => (
+            <NotesCard
+              title={note.title}
+              description={truncateText(note.body, 100) + "..."}
+              time={getRelativeTime(note.updatedAt)}
+              noteId={note._id.toString()}
+              key={note.id}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

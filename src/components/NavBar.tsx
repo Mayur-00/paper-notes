@@ -1,10 +1,8 @@
 "use client";
 
-import { Search, Settings } from "lucide-react";
-import React, { useState } from "react";
-import SearchComponent from "./SearchComponent";
+import { Search } from "lucide-react";
+import React from "react";
 import { useSearchStore } from "@/stores/useSearchStore";
-import Link from "next/link";
 import { ModeToggle } from "./ThemeToggler";
 import Container from "./Container";
 import { Logo } from "./Logo";

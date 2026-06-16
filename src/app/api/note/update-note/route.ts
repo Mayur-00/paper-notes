@@ -6,7 +6,7 @@ import NoteModel from "@/models/note.model";
 import mongoose from "mongoose";
 
 
-export async function PUT(req: NextRequest,  { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest) {
   await connectToDb();
 
   try {

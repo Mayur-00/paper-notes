@@ -64,7 +64,7 @@ export async function POST (req:NextRequest) {
         );
         
         
-    } catch (error:any) {
+    } catch (error) {
         console.log("an error occured in delete-note function", error);
         
         return NextResponse.json(

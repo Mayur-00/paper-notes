@@ -35,7 +35,7 @@ export async function connectToDb() {
 
     console.log("Database connected successfully"); // Optional logging
     return cached.conn;
-  } catch (error: any) {
+  } catch (error) {
     cached.promise = null;
     throw error;
   }

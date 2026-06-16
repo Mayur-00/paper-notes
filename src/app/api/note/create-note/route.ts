@@ -2,10 +2,7 @@ import { connectToDb } from "@/lib/dbConnect";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/options";
-import UserModel from "@/models/user.mode";
 import NoteModel from "@/models/note.model";
-import { ApiReturnObject } from "@/types/api.type";
-import next from "next";
 // import { title, body } from "process";
 
 export async function POST(req: NextRequest) {
@@ -60,13 +57,8 @@ export async function POST(req: NextRequest) {
         status: 201,
       }
     );
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error creating note:", error);
-
-    // Handle duplicate key errors
-    if (error.code === 11000) {
-      return NextResponse.json({ error: "Duplicate entry" }, { status: 409 });
-    }
 
     return NextResponse.json(
       { error: "Internal server error" },

@@ -5,11 +5,11 @@ import SearchComponent from "@/components/SearchComponent";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 
-const page = () => {
+const Page = () => {
   return (
     <main className="bg-background relative h-screen w-full overflow-y-scroll">
       <NavBar />
-      <main className="mx-auto h-[85%] max-w-6xl px-4 py-8">
+      <main className="mx-auto h-[85%] max-w-6xl px-4 py-8 ">
         <Link
           href={"/editor"}
           className="bg-card text-foreground border-accent mt-20 mb-8 flex h-10 w-40 items-center justify-center gap-2 rounded border text-lg font-bold shadow-md hover:shadow-lg dark:hover:bg-neutral-600"
@@ -24,4 +24,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

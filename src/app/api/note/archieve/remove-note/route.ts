@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
         if(note.isArchieved){
 
             note.isArchieved = false;
-            const savedNote =   await note.save();
+             await note.save();
             
             return NextResponse.json(
                 {
@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
 
 
 
-  } catch (error: any) {
+  } catch (error) {
     console.log("an error occured in remote-note function", error);
 
     return NextResponse.json(

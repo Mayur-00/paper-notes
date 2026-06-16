@@ -1,7 +1,6 @@
 import { SendEmail } from "@/helper/mailer";
 import { connectToDb } from "@/lib/dbConnect";
 import UserModel from "@/models/user.mode";
-import { ApiReturnObject } from "@/types/api.type";
 import { NextRequest, NextResponse } from "next/server";
 import { v7 as uuidV7 } from "uuid";
 
@@ -15,7 +14,7 @@ export async function POST(request: NextRequest) {
           success: false,
           message: "username, email and password is required!",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -23,7 +22,7 @@ export async function POST(request: NextRequest) {
 
     const existingUserByEmail = await UserModel.findOne({ email: email });
     const verifyCode = uuidV7();
-     const verifyCodeExpiry = new Date(Date.now() + 3600000);
+    const verifyCodeExpiry = new Date(Date.now() + 3600000);
     if (existingUserByEmail) {
       if (existingUserByEmail.isVerified) {
         return NextResponse.json(
@@ -32,23 +31,23 @@ export async function POST(request: NextRequest) {
           },
           {
             status: 400,
-          }
+          },
         );
       } else {
-      existingUserByEmail.username = username;
+        existingUserByEmail.username = username;
         existingUserByEmail.password = password;
         existingUserByEmail.verificationCode = verifyCode;
         existingUserByEmail.verifyCodeExpiry = verifyCodeExpiry;
         await existingUserByEmail.save();
       }
     } else {
-      const newUser = await UserModel.create({
+      await UserModel.create({
         username,
         email,
         password,
-        verificationCode:verifyCode,
-        verifyCodeExpiry:verifyCodeExpiry,
-        isVerified:false
+        verificationCode: verifyCode,
+        verifyCodeExpiry: verifyCodeExpiry,
+        isVerified: false,
       });
     }
 
@@ -57,7 +56,7 @@ export async function POST(request: NextRequest) {
       emailId: email,
       emailType: "VERIFY",
       userId: "",
-      username
+      username,
     });
 
     if (emailSenderFunctionResponse?.accepted?.length > 0) {
@@ -69,7 +68,7 @@ export async function POST(request: NextRequest) {
         },
         {
           status: 201,
-        }
+        },
       );
     } else {
       return NextResponse.json(
@@ -80,18 +79,18 @@ export async function POST(request: NextRequest) {
         },
         {
           status: 500,
-        }
+        },
       );
     }
   } catch (error) {
-    console.log( "error",error);
+    console.log("error", error);
     return NextResponse.json(
       {
         error: error,
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

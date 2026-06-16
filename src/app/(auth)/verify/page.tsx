@@ -1,7 +1,7 @@
 import React from 'react';
 import { MailCheck } from 'lucide-react'; // Optional: install lucide-react for icons
 
-const EmailVerificationNotice = () => {
+const Page = () => {
   return (
     <div className="h-screen w-screen flex flex-col items-center justify-center bg-gray-50 px-4 text-center">
       <MailCheck className="w-16 h-16 text-green-600 mb-6" />
@@ -19,4 +19,4 @@ const EmailVerificationNotice = () => {
   );
 };
 
-export default EmailVerificationNotice;
+export default Page;

@@ -3,12 +3,11 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/options";
 import { NextRequest, NextResponse } from "next/server";
 import NoteModel from "@/models/note.model";
-import { URLSearchParams } from "url";
 import mongoose from "mongoose";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { noteId: string } },
+  { params }: { params: Promise<{ noteId: string }> },
 ) {
   await connectToDb();
 
@@ -22,7 +21,7 @@ export async function GET(
     }
 
     // Await params as required in newer Next.js versions
-    const noteId = (await params).noteId;
+    const { noteId } = await params;
     // const searchparams =  new URLSearchParams(req.url);
     // searchparams.get('token')
 

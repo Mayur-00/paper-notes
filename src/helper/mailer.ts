@@ -101,16 +101,17 @@ export const SendEmail = async ({
     
     return emailResponse;
 
-  } catch (error: any) {
+  } catch (error) {
     console.error(`Failed to send ${emailType} email to ${emailId}:`, error);
+    const mailError = error as NodeJS.ErrnoException;
     
     // More specific error messages
-    if (error.code === 'EAUTH') {
+    if (mailError.code === 'EAUTH') {
       throw new Error('Gmail authentication failed. Please check your EMAIL_USER and EMAIL_APP_PASSWORD.');
-    } else if (error.code === 'ESOCKET') {
+    } else if (mailError.code === 'ESOCKET') {
       throw new Error('Network connection failed. Please check your internet connection.');
     } else {
-      throw new Error(`Email sending failed: ${error.message}`);
+      throw new Error(`Email sending failed`);
     }
   }
 };

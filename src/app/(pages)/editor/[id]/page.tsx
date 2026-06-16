@@ -1,7 +1,6 @@
 "use client"
 
 import EditorNavBar from '@/components/EditorNavBar';
-import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
@@ -197,11 +196,6 @@ const Page = () => {
       e.preventDefault();
       saveNote();
     }
-  };
-    const handleTitleKeyDown = () => {
-    setTimeout(() => {
-      playSound();
-    }, 200);
   };
 
   // Initialize component

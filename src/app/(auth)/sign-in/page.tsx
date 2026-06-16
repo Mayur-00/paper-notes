@@ -16,7 +16,7 @@ import { signIn } from 'next-auth/react'
 import { signinSchema } from '@/schemas/signInSchema'
 
 
-const Page:React.FC = () => {
+const Page = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -49,7 +49,7 @@ const handleSubmit = async (data: z.infer<typeof signinSchema>) => {
     toast.success("Signin success 😻");
     router.replace("/dashboard");
   
-  } catch (error: any) {
+  } catch (error) {
     toast.error("Something went wrong 🙀");
     console.log(error);
   } finally {
@@ -126,7 +126,7 @@ const handleSubmit = async (data: z.infer<typeof signinSchema>) => {
 
           <div className="text-center mt-6">
             <p className="text-gray-600 handwritten">
-              Doesn't have an account?{" "}
+              Doesn't have an account?
               <Link href="/sign-up" className="underline hover:no-underline">
                 Sign-up
               </Link>

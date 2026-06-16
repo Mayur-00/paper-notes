@@ -1,11 +1,11 @@
 import { connectToDb } from "@/lib/dbConnect";
 import { getServerSession } from "next-auth";
-import { NextRequest, NextResponse } from "next/server";
+import {  NextResponse } from "next/server";
 import mongoose from "mongoose";
 import NoteModel from "@/models/note.model";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   await connectToDb();
 
   try {
@@ -69,7 +69,7 @@ export async function GET(req: NextRequest) {
         }
     );
 
-  } catch (error: any) {
+  } catch (error) {
     console.log("error in get-archieved-notes function", error);
 
     return NextResponse.json(

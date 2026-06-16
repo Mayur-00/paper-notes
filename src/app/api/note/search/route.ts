@@ -35,19 +35,21 @@ export async function GET(req: NextRequest) {
         }
 
         // Build search filter based on search type
-        let searchFilter:any = {};
+        let searchFilter = {};
         
         switch (searchType) {
             case 'title':
                 searchFilter = {
                     author: session?.user?._id,
-                    title: { $regex: query, $options: 'i' } // Case-insensitive regex search
+                    title: { $regex: query, $options: 'i' }, // Case-insensitive regex search
+                    status:"active"
                 };
                 break;
             case 'body':
                 searchFilter = {
                     author: session?.user?._id,
-                    body: { $regex: query, $options: 'i' }
+                    body: { $regex: query, $options: 'i' },
+                    status:"active"
                 };
                 break;
             case 'all':
@@ -57,13 +59,11 @@ export async function GET(req: NextRequest) {
                     $or: [
                         { title: { $regex: query, $options: 'i' } },
                         { body: { $regex: query, $options: 'i' } }
-                    ]
+                    ],
+                    status:"active"
                 };
                 break;
         }
-
-        // Add filters for active notes only (exclude archived if needed)
-        searchFilter.status = 'active';
 
         // Execute search with pagination
         const notes = await NoteModel.find(searchFilter)
@@ -94,13 +94,12 @@ export async function GET(req: NextRequest) {
             }
         );
 
-    } catch (error: any) {
+    } catch (error) {
         console.log("An error occurred in search function", error);
         return NextResponse.json(
             {
                 success: false,
                 error: "An error occurred while searching notes",
-                details: process.env.NODE_ENV === 'development' ? error.message : undefined
             },
             {
                 status: 500

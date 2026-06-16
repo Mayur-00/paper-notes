@@ -61,12 +61,12 @@ export async function PUT(req: NextRequest) {
         }
     );
 
-  } catch (error: any) {
+  } catch (error) {
     console.log("an error occured in remove-pin function", error);
     return NextResponse.json(
         {
             success:false,
-            message:error?error.message :"internal server error"
+            message:"internal server error"
         },
         {
             status:500

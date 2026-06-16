@@ -1,3 +1,4 @@
+import { INote } from "@/components/NotesGrid"
 import axios from "axios"
 import { toast } from "sonner"
 import {create} from "zustand"
@@ -5,10 +6,10 @@ import {create} from "zustand"
 
 interface SearchState {
   isOpen: boolean
-  results: any[]
+  results: INote[]
   isLoading: boolean
   isError:boolean
-  Error:any
+  Error:unknown
   openSearch: () => void
   closeSearch: () => void
   searchNote:(query:string, type:string)=>void
@@ -39,7 +40,7 @@ export const useSearchStore = create<SearchState>((set, get) => ({
             set({results:response.data.notes});
             console.log(response.data.notes)
         };
-    } catch (error:any) {
+    } catch (error) {
         set({isError:true})
         set({Error:error})
         toast.error("an error occured")
@@ -52,7 +53,7 @@ export const useSearchStore = create<SearchState>((set, get) => ({
 
     openSearch: ()=>{
         set({isOpen:true})
-        let {isOpen} = get()
+        const {isOpen} = get()
         console.log("open search",isOpen )
 
     },

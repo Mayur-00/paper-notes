@@ -13,8 +13,11 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
 
-      async authorize(credentials: any): Promise<any> {
+      async authorize(credentials) {
         await connectToDb();
+        if (!credentials) {
+          return null;
+        }
 
         try {
           const user = await UserModel.findOne({ email: credentials.email });
@@ -33,15 +36,16 @@ export const authOptions: NextAuthOptions = {
           }
 
           return user;
-        } catch (error: any) {
+        } catch (error) {
           // Bug Fix 2: Extract the message safely so it does not crash Next-Auth
-          throw new Error(error?.message || "Authentication error occurred");
+          console.log(error)
+          throw new Error( "Authentication error occurred");
         }
       },
     }),
   ],
   callbacks: {
-    async jwt({ token, user }: { token: any; user?: any }) {
+    async jwt({ token, user }) {
       if (user) {
         token._id = user._id?.toString();
         token.username = user.username;
@@ -49,10 +53,11 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
 
-    async session({ session, token }: { session: any; token: any }) {
+    async session({ session, token }) {
+
       if (token) {
-        session.user._id = token._id.toString();
-        session.user.username = token.username;
+        session.user._id = token._id as string;
+        session.user.username = token.username as string
       }
       return session;
     },

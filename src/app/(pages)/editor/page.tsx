@@ -1,10 +1,9 @@
 "use client";
 
 import EditorNavBar from "@/components/EditorNavBar";
-import { Input } from "@/components/ui/input";
 import axios from "axios";
-import { useParams, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 import { toast } from "sonner";
 
 const playSound = () => {
@@ -14,15 +13,13 @@ const playSound = () => {
 const Page = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [isSaving, setIsSaving] = useState(false);
+   const [isSaving, setIsSaving] = useState(false);
   const router = useRouter();
 
   const saveNote = async () => {
     try {
       setIsSaving(true);
-
       console.log(title, content);
       const res = await axios.post("/api/note/create-note", {
         title: title,
@@ -41,7 +38,7 @@ const Page = () => {
       setError("Failed to save note");
       console.error("Error saving note:", err);
     } finally {
-      setIsSaving(false);
+      setIsSaving(false)
     }
   };
 
@@ -71,9 +68,10 @@ const Page = () => {
     );
   }
 
+  
   return (
     <div className="h-screen w-screen flex flex-col items-center bg-white dark:bg-neutral-900 ">
-      <EditorNavBar deleteDiabled={true} onSubmitClick={saveNote} />
+      <EditorNavBar deleteDiabled={true} onSubmitClick={saveNote} isSaving={isSaving} />
 
       <main className="w-[100%] h-[100%]  rounded-md overflow-y-scroll flex flex-col items-center   ">
         <div className="min-h-[600px] w-[60%] border-2 mt-10 rounded-md note-shadow bg-white dark:bg-neutral-800 border-gray-200 dark:border-neutral-500 p-8 flex flex-col i">

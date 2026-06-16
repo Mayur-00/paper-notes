@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
     if (note.author === userid) {
         
         note.isArchieved = true;
-        const savedNote = await note.save();
+       await note.save();
 
          return NextResponse.json(
         {
@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
 
    
 
-  } catch (error: any) {
+  } catch (error) {
     console.log("an error occured in add-note-archieve function", error);
 
     return NextResponse.json(
