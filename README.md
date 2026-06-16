@@ -7,16 +7,13 @@ A modern, full-stack note-taking application built with Next.js that helps you o
 - **Secure Authentication** - Sign in with Google, GitHub, or email using NextAuth
 - **Rich Note Editor** - Create and edit notes with markdown support and syntax highlighting
 - **Smart Organization** - Tag system, folders, and search functionality to keep notes organized
-- **Real-time Sync** - Auto-save functionality with instant updates across devices
-- **Export Options** - Export notes as PDF, Markdown, or plain text
 - **Dark/Light Mode** - Toggle between themes for comfortable writing
 - **Responsive Design** - Works seamlessly across desktop, tablet, and mobile devices
-- **Offline Support** - Continue taking notes even without internet connection
 
 ## 🛠️ Tech Stack
 
 - **Framework**: [Next.js 14](https://nextjs.org/) - Full-stack React framework with App Router
-- **Database**: [PostgreSQL](https://postgresql.org/) with [Prisma ORM](https://prisma.io/) for type-safe database access
+- **Database**: [MONGODB](https://www.mongodb.com/) with [MONGOOSE](https://mongoosejs.com/) for type-safe database access
 - **Authentication**: [NextAuth.js v5](https://next-auth.js.org/) - Complete authentication solution
 - **State Management**: [Zustand](https://zustand-demo.pmnd.rs/) - Lightweight state management
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
@@ -38,7 +35,7 @@ Make sure you have the following installed on your machine:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/alexsmith/paper-notes.git
+   git clone https://github.com/Mayur-00/paper-notes
    cd paper-notes
    ```
 
@@ -214,10 +211,10 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 
 ## 📈 Stats
 
-![GitHub stars](https://img.shields.io/github/stars/alexsmith/paper-notes?style=social)
-![GitHub forks](https://img.shields.io/github/forks/alexsmith/paper-notes?style=social)
-![GitHub issues](https://img.shields.io/github/issues/alexsmith/paper-notes)
-![GitHub license](https://img.shields.io/github/license/alexsmith/paper-notes)
+![GitHub stars](https://img.shields.io/github/stars/Mayur-00/paper-notes?style=social)
+![GitHub forks](https://img.shields.io/github/forks/Mayur-00/paper-notes?style=social)
+![GitHub issues](https://img.shields.io/github/issues/Mayur-00/paper-notes)
+![GitHub license](https://img.shields.io/github/license/Mayur-00/paper-notes)
 
 ---
 
