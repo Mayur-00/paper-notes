@@ -1,6 +1,3 @@
-
-
-
 import { connectToDb } from "@/lib/dbConnect";
 import UserModel from "@/models/user.mode";
 import { NextAuthOptions } from "next-auth";
@@ -22,18 +19,23 @@ export const authOptions: NextAuthOptions = {
         try {
           const user = await UserModel.findOne({ email: credentials.email });
 
-          if (user) {
-            const isPasswordCorrect = await user.comparePassword(
-              credentials.password
-            );
+          // Bug Fix 1: If user is not found, return null explicitly
+          if (!user) {
+            return null;
+          }
 
-            if (!isPasswordCorrect) {
-              throw new Error("incorrect password");
-            }
-            return user;
-          } 
+          const isPasswordCorrect = await user.comparePassword(
+            credentials.password,
+          );
+
+          if (!isPasswordCorrect) {
+            return null; // Next-Auth standard failure trigger
+          }
+
+          return user;
         } catch (error: any) {
-          throw new Error(error);
+          // Bug Fix 2: Extract the message safely so it does not crash Next-Auth
+          throw new Error(error?.message || "Authentication error occurred");
         }
       },
     }),
@@ -43,7 +45,6 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token._id = user._id?.toString();
         token.username = user.username;
-    
       }
       return token;
     },
@@ -52,7 +53,6 @@ export const authOptions: NextAuthOptions = {
       if (token) {
         session.user._id = token._id.toString();
         session.user.username = token.username;
-     
       }
       return session;
     },

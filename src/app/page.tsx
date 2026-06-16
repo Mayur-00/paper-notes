@@ -14,10 +14,10 @@ export default function LandingPage() {
           </div>
           <div className="flex items-center gap-4">
             <Button asChild variant="ghost" className="handwritten">
-              <Link href="/login">Sign In</Link>
+              <Link href="/sign-in">Sign In</Link>
             </Button>
             <Button asChild className="btn-paper handwritten">
-              <Link href="/signup">Get Started</Link>
+              <Link href="/sign-up">Get Started</Link>
             </Button>
           </div>
         </div>

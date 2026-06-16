@@ -1,33 +1,43 @@
-"use client"
+"use client";
 
-import { Search, Settings } from 'lucide-react'
-import React, { useState } from 'react'
-import SearchComponent from './SearchComponent'
-import { useSearchStore } from '@/stores/useSearchStore'
-import Link from 'next/link'
-import { ModeToggle } from './ThemeToggler'
+import { Search, Settings } from "lucide-react";
+import React, { useState } from "react";
+import SearchComponent from "./SearchComponent";
+import { useSearchStore } from "@/stores/useSearchStore";
+import Link from "next/link";
+import { ModeToggle } from "./ThemeToggler";
+import Container from "./Container";
+import { Logo } from "./Logo";
+import { cn } from "@/lib/utils";
 
 const NavBar = () => {
-  const [searchVisible, setSearchVisible] = useState(false);
+  const { openSearch } = useSearchStore();
 
-const {openSearch} =  useSearchStore()
-
-  const searchClickHandler = ()=> {
-    openSearch()
-  }
+  const searchClickHandler = () => {
+    openSearch();
+  };
   return (
-    <nav className='h-[10%] md:h-[15%] w-full border shadow-lg flex items-center justify-between px-5 md:px-20 ' >
-        <h1 className='font-bold md:text-3xl text-lg text-black dark:text-neutral-200 '>Paper Notes</h1>
+    <Container
+      className={cn(
+        "my-3 h-20 flex items-center justify-between rounded-md px-4 py-4 border-accent-foreground/10",
+        "bg-background/20 border-1 backdrop-blur-md",
+        "fixed top-0  inset-0"
+      )}
+    >
+      <Logo className="" />
 
-        <div className='flex gap-5 items-center'>
-            <ModeToggle />
-            <button onClick={searchClickHandler}  className='flex bg-white dark:bg-neutral-700 dark:hover:bg-neutral-600 text-black dark:text-neutral-300 border-1 border-black hover:bg-neutral-200  rounded justify-center items-center gap-1 md:h-10 md:w-30 h-10 w-25'>
-                <Search className='size-5 '/><span>Search</span>
-            </button>
-        </div>
+      <div className="flex items-center gap-5">
+        <button
+          onClick={searchClickHandler}
+          className="flex h-10 w-25 cursor-pointer items-center gap-1 rounded border-1 border-black bg-white p-2 text-black transition-all delay-75 hover:bg-neutral-200 md:h-10 md:w-50 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-600"
+        >
+          <Search className="size-5" />
+          <span>Search</span>
+        </button>
+        <ModeToggle />
+      </div>
+    </Container>
+  );
+};
 
-    </nav>
-  )
-}
-
-export default NavBar
+export default NavBar;

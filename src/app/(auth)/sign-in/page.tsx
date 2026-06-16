@@ -1,6 +1,6 @@
 "use client"
 
-import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,15 +10,14 @@ import { Form } from '@/components/ui/form'; // ✅ Form from ShadCN
 import { z } from 'zod'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Loader, Loader2 } from 'lucide-react';
+import { Loader} from 'lucide-react';
 import Link from 'next/link'
 import { signIn } from 'next-auth/react'
 import { signinSchema } from '@/schemas/signInSchema'
 
 
-const page = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("");
+const Page:React.FC = () => {
+
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const router = useRouter()
@@ -31,34 +30,33 @@ const page = () => {
       },
     });
  
-  const handleSubmit = async (data:z.infer<typeof signinSchema>) => {
-
-    console.log(data);
-
-    try {
-      setIsSubmitting(true)
-      
-      const res = await signIn("credentials", {
-      redirect:false,
-      email:data.email,
-      password:data.password
-     });
-     console.log(res)
-      toast.success("Signin success 😻");
-      router.push("/dashboard")
+const handleSubmit = async (data: z.infer<typeof signinSchema>) => {
+  try {
+    setIsSubmitting(true);
     
-    } catch (error:any) {
-      toast.error("Incorrect Email or Password 🙀", )
-      console.log(error)
-      
-    } finally{
-      setIsSubmitting(false);
+    const res = await signIn("credentials", {
+      redirect: false,
+      email: data.email,
+      password: data.password
+    });
+
+    // Bug Fix 3: Handle failures returned safely in the response payload
+    if (res?.error) {
+      toast.error("Incorrect Email or Password 🙀");
+      return;
     }
 
-
-
-   
+    toast.success("Signin success 😻");
+    router.replace("/dashboard");
+  
+  } catch (error: any) {
+    toast.error("Something went wrong 🙀");
+    console.log(error);
+  } finally {
+    setIsSubmitting(false);
   }
+};
+
   return (
    <div className="min-h-screen paper-bg flex items-center justify-center p-4">
       <div className="w-full max-w-md">
@@ -141,4 +139,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

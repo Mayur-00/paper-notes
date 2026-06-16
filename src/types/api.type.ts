@@ -1,10 +1,9 @@
-import mongoose from "mongoose";
 
 export interface ApiReturnObject {
     success?:boolean,
     error?:string,
     message?:string,
-    data?:any;
+  
     status?:number;
 };
 

@@ -26,12 +26,12 @@ const Page = () => {
       console.log(title, content);
       const res = await axios.post("/api/note/create-note", {
         title: title,
-        body: content,
+        body: content.trim(),
       });
 
       if (res.data.success) {
         toast.success("👍 note saved successfullly redirecting....");
-        router.replace(`/editor/${res.data.noteId}`);
+        router.replace(`/dashboard`);
       }
 
       setError(null);

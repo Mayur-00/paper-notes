@@ -35,18 +35,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${kalam.className} font-sans antialiased`} suppressHydrationWarning>
+      <body className={`${kalam.className} font-sans antialiased bg-background h-screen `} suppressHydrationWarning>
         <SessionWraper>
           <ThemeProvider
             attribute="class"
-            defaultTheme="light"
+            defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
             {children}
 
+           <Toaster position="bottom-right" />
           </ThemeProvider>
-            <Toaster />
         </SessionWraper>
       </body>
     </html>

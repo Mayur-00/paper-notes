@@ -1,5 +1,4 @@
 import mongoose, { Schema } from "mongoose";
-
 import bcrypt from "bcryptjs";
 import { IUser } from "@/types/model.types";
 
@@ -8,7 +7,6 @@ const userSchema: Schema<IUser> = new Schema(
     username: {
       type: String,
       required: [true, "Username is required"],
-      unique: true,
       trim: true,
       minLength: [3, "Username must be at least 3 characters"],
       maxLength: [30, "Username cannot exceed 30 characters"],
@@ -33,28 +31,26 @@ const userSchema: Schema<IUser> = new Schema(
       required: [true, "Password is required"],
       minLength: [8, "Password must be at least 8 characters"],
     },
-    isVerified:{
-      type:Boolean,
-      default:false
-
+    isVerified: {
+      type: Boolean,
+      default: false,
     },
-    verificationCode:{
-      type:String,
+    verificationCode: {
+      type: String,
     },
-    verifyCodeExpiry:{
-      type:Date,
+    verifyCodeExpiry: {
+      type: Date,
     },
-    forgotPasswordCode:{
-      type:String,
-
+    forgotPasswordCode: {
+      type: String,
     },
-    forgotPasswordCodeExpiry:{
-      type:Date,
-    }
+    forgotPasswordCodeExpiry: {
+      type: Date,
+    },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 userSchema.pre("save", async function (next) {
@@ -72,7 +68,7 @@ userSchema.pre("save", async function (next) {
 });
 
 userSchema.methods.comparePassword = async function (
-  candidatePassword: string
+  candidatePassword: string,
 ) {
   return bcrypt.compare(candidatePassword, this.password);
 };

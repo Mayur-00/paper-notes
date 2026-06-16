@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import React, { useCallback, useEffect, useState } from 'react'
 import { toast } from 'sonner';
+import NotesCard from './NotesCard';
 
 const NotesGrid = () => {
 
@@ -15,11 +16,11 @@ const NotesGrid = () => {
 
   // Function to truncate text to specified word count
   const truncateText = (text:string, wordLimit = 20) => {
-    const words = text.split(' ');
-    if (words.length <= wordLimit) {
-      return text;
-    }
-    return words.slice(0, wordLimit).join(' ') + '...';
+   return  text.slice(0, wordLimit)
+    // // if (words.length <= wordLimit) {
+    // //   return text;
+    // // }
+    // return words.slice(0, wordLimit).join(' ') + '...';
   };
 
   // Function to format date to relative time
@@ -81,10 +82,6 @@ const NotesGrid = () => {
   };
 
 
-
-
-
-
   useEffect(() => {
     fetchNotes();
   }, [fetchNotes]);
@@ -124,20 +121,9 @@ const NotesGrid = () => {
       ) : (
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
           {notes.map((note:any) => (
-            <div key={note._id} onClick={()=>handleNoteClick(note._id)} className='h-52 w-full max-w-96 bg-white dark:bg-neutral-700 border-2 hover:shadow-lg transition-shadow duration-200 border-gray-200 dark:border-neutral-700 relative rounded-lg cursor-pointer'>
-              <div className='p-5'>
-                <h1 className='font-bold text-xl p-1 mb-2 line-clamp-2 text-black dark:text-neutral-300'>{note.title}</h1>
-                <p className='text-gray-600 dark:text-neutral-400 text-sm leading-relaxed'>
-                  {truncateText(note.body, 20)}
-                </p>
-              </div>
-              <div className='absolute bottom-4 right-4'>
-                <span className='text-gray-400 text-sm'>
-                  {getRelativeTime(note.updatedAt)}
-                </span>
-              </div>
-            </div>
+            <NotesCard title={note.title} description={truncateText(note.body, 100) + '...'} time={getRelativeTime(note.updatedAt)} key={note.id}/>
           ))}
+         
         </div>
       )}
 

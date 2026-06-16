@@ -21,23 +21,6 @@ export async function POST(request: NextRequest) {
 
     await connectToDb();
 
-    const existingUserVerifiedByUsername = await UserModel.findOne({
-      username,
-      isVerified: true,
-    });
-
-    if (existingUserVerifiedByUsername) {
-      return Response.json(
-        {
-          success: false,
-          message: "Username is already taken",
-        },
-        {
-          status: 400,
-        }
-      );
-    }
-
     const existingUserByEmail = await UserModel.findOne({ email: email });
     const verifyCode = uuidV7();
      const verifyCodeExpiry = new Date(Date.now() + 3600000);
@@ -48,7 +31,7 @@ export async function POST(request: NextRequest) {
             error: "user already exist please login",
           },
           {
-            status: 500,
+            status: 400,
           }
         );
       } else {
@@ -101,10 +84,10 @@ export async function POST(request: NextRequest) {
       );
     }
   } catch (error) {
-    console.log(error);
+    console.log( "error",error);
     return NextResponse.json(
       {
-        error: "internal server error",
+        error: error,
       },
       {
         status: 500,

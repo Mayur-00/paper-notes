@@ -48,14 +48,15 @@ const page = () => {
 
       if(!response.data.success){
 
-      toast.success(response.data.error);
+      toast.error(response.data.error);
 
       }
 
     } catch (error:any) {
+      console.log(error)
       const axiosError = error as AxiosError<ApiReturnObject>;
       const errorMessage = axiosError.response?.data.message;
-      toast.error(errorMessage);
+      toast.error(error.response.data.error);
       
     } finally{
       setIsSubmitting(false)

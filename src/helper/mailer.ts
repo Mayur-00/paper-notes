@@ -42,7 +42,7 @@ export const SendEmail = async ({
       });
 
       emailOptions = {
-        from: `"Notes App" <${process.env.EMAIL_USER}>`,
+        from: `"Paper Notes App" <${process.env.EMAIL_USER}>`,
         to: emailId,
         subject: "Reset Password - Notes App",
         html: `
@@ -67,7 +67,7 @@ export const SendEmail = async ({
       };
     } else if (emailType === "VERIFY") {
       emailOptions = {
-        from: `"Notes App" <${process.env.EMAIL_USER}>`,
+        from: `"Paper Notes App" <${process.env.EMAIL_USER}>`,
         to: emailId,
         subject: "Verify Your Email - Notes App",
         html: `

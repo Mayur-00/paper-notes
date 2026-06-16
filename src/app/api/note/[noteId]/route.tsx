@@ -6,10 +6,9 @@ import NoteModel from "@/models/note.model";
 import { URLSearchParams } from "url";
 import mongoose from "mongoose";
 
-
 export async function GET(
   req: NextRequest,
-  { params }: { params: { noteId: string } }
+  { params }: { params: { noteId: string } },
 ) {
   await connectToDb();
 
@@ -18,7 +17,7 @@ export async function GET(
     if (!session || !session.user || !session.user.email) {
       return NextResponse.json(
         { success: false, error: "Unauthorized" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -32,30 +31,32 @@ export async function GET(
       return NextResponse.json(
         {
           success: false,
-          message: "NoteId Not Found"
+          message: "NoteId Not Found",
         },
         {
-          status: 400 // Changed from 404 to 400 (Bad Request)
-        }
+          status: 400, // Changed from 404 to 400 (Bad Request)
+        },
       );
     }
 
-     const verifiedNoteId = new mongoose.Types.ObjectId(noteId);
-    
-        const userid = new mongoose.Types.ObjectId(session?.user?._id);
-    
+    const verifiedNoteId = new mongoose.Types.ObjectId(noteId);
 
-    const note = await NoteModel.findOne({_id:verifiedNoteId, author:userid});
+    const userid = new mongoose.Types.ObjectId(session?.user?._id);
+
+    const note = await NoteModel.findOne({
+      _id: verifiedNoteId,
+      author: userid,
+    });
 
     if (!note) {
       return NextResponse.json(
         {
           success: false,
-          message: "Note not found"
+          message: "Note not found",
         },
         {
-          status: 404
-        }
+          status: 404,
+        },
       );
     }
 
@@ -64,7 +65,7 @@ export async function GET(
     // if (note.author !== userid ){
     //   console.log(note.author);
     //   console.log(USERID);
-      
+
     //   return NextResponse.json(
     //     {
     //       success: false,
@@ -80,21 +81,21 @@ export async function GET(
       {
         success: true,
         message: "Note fetched successfully",
-        note: note
+        note: note,
       },
       {
-        status: 200
-      }
+        status: 200,
+      },
     );
   } catch (error) {
     console.error("Error getting note:", error);
 
     return NextResponse.json(
-      { 
+      {
         success: false,
-        error: "Internal server error" 
+        error: "Internal server error",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
