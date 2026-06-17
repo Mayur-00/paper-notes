@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 export { default } from "next-auth/middleware";
+
 import { getToken } from "next-auth/jwt";
 
 // This function can be marked `async` if using `await` inside
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const token = await getToken({ req: request });
   const path = request.nextUrl.pathname;
   const isPublic = path==="/" || path==="/sign-in" || path==="/sign-up" || path==="/verify" ||  path.startsWith("/verify/")  ;
