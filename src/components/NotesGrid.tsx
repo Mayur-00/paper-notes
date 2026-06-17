@@ -15,7 +15,7 @@ export interface INote extends Document {
   status: string;
   isArchieved: boolean;
   isPinned: boolean;
-  __v:number;
+  __v: number;
   updatedAt: Date;
   createdAt?: Date;
 }
@@ -89,40 +89,38 @@ const NotesGrid = () => {
     return (
       <div className="w-full">
         <div className="flex h-64 items-center justify-center">
-          <div className="text-gray-500">Loading notes...</div>
+          <div className="text-foreground">Loading notes...</div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="w-full ">
-      {/* Search Input */}
-
-      {/* Results Summary */}
-
-      {/* Notes Grid */}
+    <div className="w-full">
+    
       {error && (
-        <div className="flex h-64 flex-col items-center justify-center text-gray-500">
-          <div className="mb-2 text-lg">'No notes available</div>
-          <div className="text-sm">{error}</div>
+        <div className="text-foreground flex h-64 flex-col items-center justify-center">
+          <div className="mb-2 text-lg">'No notes available'</div>
+          <div className="text-foreground/50 text-sm">{error}</div>
         </div>
       )}
 
       {notes.length === 0 ? (
-        <div className="flex h-64 flex-col items-center justify-center text-gray-500">
-          <div className="mb-2 text-lg">'No notes available</div>
-          <div className="text-sm">'Create your first note to get started</div>
+        <div className="text-foreground flex h-64 flex-col items-center justify-center">
+          <div className="mb-2 text-lg">'No notes available'</div>
+          <div className="text-foreground/50 text-sm">
+            'Create your first note to get started
+          </div>
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {notes.map((note) => (
             <NotesCard
+              key={note._id.toString()}
               title={note.title}
               description={truncateText(note.body, 100) + "..."}
               time={getRelativeTime(note.updatedAt)}
               noteId={note._id.toString()}
-              key={note.id}
             />
           ))}
         </div>

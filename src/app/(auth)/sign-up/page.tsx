@@ -64,30 +64,8 @@ const Page = () => {
     }
   };
 
-  // const handleSubmit = async (e:any) => {
-
-  //   e.preventDefault();
-
-  //   console.log("in function")
-  //   const formdata = {
-  //     username,
-  //     email,
-  //     password
-  //   };
-
-  //   const res = await axios.post('/api/auth/sign-up', formdata);
-
-  //   if(res.data.success){
-  //     console.log("signup success");
-  //     router.replace('/sign-in');
-
-  //   };
-  //   console.log(res.data)
-
-  // }
-
   return (
-    <div className="paper-bg flex min-h-screen items-center justify-center p-4">
+    <div className="bg-background text-foreground flex min-h-screen items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="mb-8 text-center">
@@ -98,7 +76,7 @@ const Page = () => {
         </div>
 
         {/* Signup Form */}
-        <div className="paper-bg note-shadow rounded-lg border-2 border-gray-200 p-8">
+        <div className="bg-card text-foreground note-shadow rounded-lg border-2 border-accent p-8">
           <h2 className="handwritten mb-6 text-center text-2xl font-bold">
             Create Account
           </h2>

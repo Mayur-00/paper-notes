@@ -73,8 +73,8 @@ const Page = () => {
     <div className="h-screen w-screen flex flex-col items-center bg-white dark:bg-neutral-900 ">
       <EditorNavBar deleteDiabled={true} onSubmitClick={saveNote} isSaving={isSaving} />
 
-      <main className="w-[100%] h-[100%]  rounded-md overflow-y-scroll flex flex-col items-center   ">
-        <div className="min-h-[600px] w-[60%] border-2 mt-10 rounded-md note-shadow bg-white dark:bg-neutral-800 border-gray-200 dark:border-neutral-500 p-8 flex flex-col i">
+      <main className="w-full h-full  rounded-md overflow-y-scroll flex flex-col items-center   ">
+        <div className="min-h-150 w-[60%] border-2 mt-10 rounded-md note-shadow bg-white dark:bg-neutral-800 border-gray-200 dark:border-neutral-500 p-8 flex flex-col i">
           {/* Title */}
           <input
             value={title}
@@ -89,7 +89,7 @@ const Page = () => {
             onChange={(e) => setContent(e.target.value)}
             placeholder="Start writing your thoughts..."
             onKeyDown={handleKeyDown}
-            className="min-h-[400px] text-lg  bg-transparent border-none text-black outline-none focus:ring-0 dark:text-neutral-200 shadow-none p-1  resize-none focus-visible:ring-0 leading-7"
+            className="min-h-100 text-lg  bg-transparent border-none text-black outline-none focus:ring-0 dark:text-neutral-200 shadow-none p-1  resize-none focus-visible:ring-0 leading-7"
             style={{
               backgroundImage:
                 "repeating-linear-gradient(transparent, transparent 27px, rgba(71, 70, 70, 0.911) 27px, rgba(71, 70, 70, 0.911) 28px)",

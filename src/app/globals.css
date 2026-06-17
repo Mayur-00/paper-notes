@@ -47,9 +47,6 @@
 @theme {
   --shadow-paper:2px solid oklch(14.1% 0.005 285.823),
 
-  
-
-
 }
 
 :root {
@@ -159,7 +156,7 @@ body {
 }
 
 .ruled-paper {
-  background: white;
+  background: var(--color-background);
   background-image: var(--ruled-lines), var(--paper-texture);
 }
 

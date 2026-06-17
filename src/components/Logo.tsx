@@ -4,9 +4,9 @@ import React from 'react'
 
 export const Logo = ({className}:{className:string}) => {
   return (
-   <Link href={"/"} className={cn("flex items-center gap-2 ",className)}>
-    <LogoIcon className='size-8 rounded-md object-center'/>
-    <h3 className='font-semibold text-lg'>Paper Notes</h3>
+   <Link href={"/"} className={cn("flex items-center justify-center gap-2 ",className)}>
+    <LogoIcon className='size-7  md:size-8 rounded-md object-center'/>
+    <span className='font-semibold text-md md:text-lg'>Paper Notes</span>
    </Link>
   )
 }

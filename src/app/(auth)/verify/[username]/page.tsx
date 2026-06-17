@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { CheckCircle2, Loader, AlertCircle } from "lucide-react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import axios, { isAxiosError } from "axios";
@@ -83,14 +83,14 @@ const Page = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-center bg-white px-4 text-center">
+    <div className="flex h-screen w-screen flex-col items-center justify-center bg-background text-foreground px-4 text-center">
       {isVerifying && (
         <>
-          <Loader className="mb-6 h-16 w-16 animate-spin text-gray-400" />
+          <Loader className="mb-6 h-16 w-16 animate-spin text-foreground" />
           <h1 className="mb-3 text-3xl font-semibold text-gray-900 md:text-4xl">
             Verifying Email <span className="animate-pulse">...</span>
           </h1>
-          <p className="text-gray-600">
+          <p className="text-foreground/50">
             Please wait while we verify your email address.
           </p>
         </>
@@ -99,14 +99,14 @@ const Page = () => {
       {isVerified && (
         <>
           <CheckCircle2 className="mb-6 h-16 w-16 text-green-600" />
-          <h1 className="mb-3 text-3xl font-semibold text-gray-900 md:text-4xl">
+          <h1 className="mb-3 text-3xl font-semibold text-foreground md:text-4xl">
             Email Verified!
           </h1>
-          <p className="max-w-md text-gray-700">
+          <p className="max-w-md text-foreground/50">
             Your email has been successfully verified. You can now log in to
             your account and start using the app.
           </p>
-          <p className="mt-4 text-sm text-gray-500">
+          <p className="mt-4 text-sm text-foreground/50">
             Redirecting you to the login page...
           </p>
         </>
@@ -115,7 +115,7 @@ const Page = () => {
       {!isVerifying && !isVerified && error && (
         <>
           <AlertCircle className="mb-6 h-16 w-16 text-red-500" />
-          <h1 className="mb-3 text-3xl font-semibold text-gray-900 md:text-4xl">
+          <h1 className="mb-3 text-3xl font-semibold text-foreground md:text-4xl">
             Verification Failed
           </h1>
           <p className="mb-6 max-w-md text-red-600">{error}</p>

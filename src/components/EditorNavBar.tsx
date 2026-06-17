@@ -36,7 +36,7 @@ const EditorNavBar = ({
       <div className="flex items-center gap-5">
         <button
           onClick={handleClick}
-          className="flex h-10 w-25 cursor-pointer items-center justify-center gap-1 rounded border-1 border-black bg-white text-black hover:bg-neutral-50 md:h-10 md:w-30 dark:bg-neutral-700 dark:text-neutral-50 dark:hover:bg-neutral-600"
+          className="flex h-10 w-25 cursor-pointer items-center justify-center gap-1 rounded border border-black bg-white text-black hover:bg-neutral-50 md:h-10 md:w-30 dark:bg-neutral-700 dark:text-neutral-50 dark:hover:bg-neutral-600"
         >
           {isSaving && <Loader2 className="size-5 animate-spin" />}
 
